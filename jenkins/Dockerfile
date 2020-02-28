@@ -1,0 +1,43 @@
+FROM jenkins/jenkins:lts
+
+#Install docker as root user
+USER root
+RUN apt-get update && apt-get install -y python3-pip && apt-get install -y jq
+RUN curl -sSL https://get.docker.com/ | sh
+RUN usermod -aG docker jenkins
+ENV DOCKER_HOST unix:///var/run/docker.sock #This will set an environment variable linking to the docker socket. It can be used to mount the docker socket of the host machine with this Jenkins' docker image. 
+
+
+#Install Gcloud authenticator - which can be used to login to google cloud. 
+RUN echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+RUN apt-get install apt-transport-https ca-certificates gnupg
+RUN curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
+RUN apt-get update -y && apt-get install google-cloud-sdk -y
+
+
+# install AWS CLI - which is used to connect to AWS. 
+USER root
+RUN apt-get update
+RUN apt install python3-pip -y
+RUN pip3 install awscli --upgrade
+
+
+# install terraform
+RUN apt-get install unzip
+RUN wget https://releases.hashicorp.com/terraform/0.12.19/terraform_0.12.19_linux_amd64.zip
+RUN unzip terraform_0.12.19_linux_amd64.zip
+RUN mv terraform /usr/local/bin/
+
+
+# install ansible
+RUN echo "deb http://ppa.launchpad.net/ansible/ansible/ubuntu trusty main" >> /etc/apt/sources.list
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 93C4A3FD7BB9C367
+RUN apt-get update
+RUN echo 'Y' | apt-get install ansible
+
+# install nano
+RUN apt-get install nano
+
+
+#IMPORTANT - in order to launch Jenkins the system need to be set to jenkins user. 
+USER jenkins
