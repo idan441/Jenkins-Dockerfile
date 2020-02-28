@@ -16,6 +16,7 @@ If this are installed on Jenkins, you can use Jenkins in order to connect to clo
 cd from your terminal to the directory with the files, then run the docker-compose file - 
 ```bash 
 docker-compose up
+docker-compose up --build #If you changed the images, then you need to rebuild it. BY default docker-compose doesn't rebuild the image unless you mention it by adding --build argument. 
 ```
 
 If you want to run the docker file itself, without docker compose - 
