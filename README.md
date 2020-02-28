@@ -22,14 +22,15 @@ docker-compose up --build #If you changed the images, then you need to rebuild i
 If you want to run the docker file itself, without docker compose - 
 ```bash
 docker run -v /var/run/docker.sock:/var/run/docker.sock -v jenkins_data:/var/jenkins_home -p 801:8080 my-jenkins-image #If the Dockerfile is in the local directory. 
+```
+
+### To debug the container - 
+You can connect to it with a bash session. As mentioned, I installed Nano text editor so you can read and edit files more easy if need to. 
 ```bash
 docker container ls #Find you Jenkins container name
 docker log <containername> # Get logs from the container. 
 docker exec -it <containername> bash #This will open a bash session in the Jenkins container. 
 ```
-
-### To debug the container - 
-You can connect to it with a bash session. As mentioned, I installed Nano text editor so you can read and edit files more easy if need to. 
 
 
 ## Pre-requisites install docker and docker-compose - 
