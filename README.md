@@ -12,7 +12,7 @@ The docker file includes Jenkins along important DevOps softwares -
 If this are installed on Jenkins, you can use Jenkins in order to connect to cloud providers and to configure your cloud architecture. This will allow to make full automatation of the continous deploymnet (CD) which is a parts of the CI/CD pipeline! 
 
 
-# To run the docker file - 
+## To run the docker file - 
 cd from your terminal to the directory with the files, then run the docker-compose file - 
 ```bash 
 docker-compose up
@@ -28,12 +28,11 @@ docker log <containername> # Get logs from the container.
 docker exec -it <containername> bash #This will open a bash session in the Jenkins container. 
 ```
 
-# To debug the container - 
+### To debug the container - 
 You can connect to it with a bash session. As mentioned, I installed Nano text editor so you can read and edit files more easy if need to. 
-``` docker ls
 
 
-# Pre-requisites install docker and docker-compose - 
+## Pre-requisites install docker and docker-compose - 
 In order to run the docker file itself, docker needs to be installed on your local machine. To install docker on use these commands - 
 ```bash
 #This script will install docker on the local machine. 
